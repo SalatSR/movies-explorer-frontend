@@ -1,0 +1,15 @@
+.login__fieldset {
+  margin: 0 0 210px 0;
+}
+
+@media screen and (max-width: 500px) {
+  .login__fieldset {
+    margin: 0 0 257px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .login__fieldset {
+    margin: 0 0 300px;
+  }
+}

@@ -1,0 +1,129 @@
+.search {
+  box-sizing: border-box;
+  background-color: #fafafa;
+  margin: 0 auto;
+  padding: 70px 70px 0 70px;
+  width: 100%;
+}
+
+.search::after {
+  box-sizing: border-box;
+  display: block;
+  content: '';
+  border-bottom: 1px solid #e8e8e8;
+  padding-top: 69px;
+}
+
+.search__form {
+  display: flex;
+  justify-content: space-between;
+  background-color: #fff;
+  border-radius: 9px;
+  align-items: center;
+  box-shadow: 0px 0px 19px 0px rgba(34, 60, 80, .2);
+  padding: 0 30px 0 0;
+  min-height: 72px;
+}
+
+.search__icon {
+  margin: 0 10px 0 20px;
+}
+
+.search__input {
+  flex-grow: 1;
+  background-color: #fff;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 20px;
+  border: none;
+  padding: 0;
+}
+
+.search__input:focus {
+  outline: none;
+}
+
+.search__submit {
+  background-color: #3456F3;
+  background-image: url(../../images/searchButtonIcon.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 48px;
+  border: none;
+  cursor: pointer;
+  margin: 0 20px 0 20px;
+  padding: 0;
+  width: 34px;
+  height: 34px;
+}
+
+.search__submit:hover {
+  transition: .3s;
+  opacity: .7;
+}
+
+.search__separator {
+  width: 1px;
+  height: 40px;
+  background-color: #cbcbcb;
+  margin-right: 28px;
+}
+
+@media screen and (max-width: 840px) {
+  .search {
+    width: 100%;
+    padding: 80px 0 0px;
+  }
+
+  .search::after {
+    padding-top: 110px;
+  }
+
+  .search__form {
+    padding: 0;
+    max-width: 708px;
+    margin: 0 auto;
+  }
+
+  .search__icon {
+    margin: 0 10px 0 19px;
+  }
+
+  .search__submit {
+    margin: 0 19px 0 0;
+  }
+
+  .search__separator {
+    margin-right: 19px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .search {
+    width: calc(100% - 20px);
+    position: relative;
+  }
+
+  .search__separator {
+    display: none;
+  }
+
+  .search__form {
+    padding: 0;
+  }
+
+  .search__icon {
+    display: none;
+  }
+
+  .search__input {
+    width: calc(100% - 19px - 80px - 19px - 19px);
+    margin-left: 19px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .search__input {
+    font-size: 14px;
+  }
+}
