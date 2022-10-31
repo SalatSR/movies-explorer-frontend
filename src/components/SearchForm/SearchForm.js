@@ -5,7 +5,7 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 function SearchForm(props) {
   return (
     <section className="search">
-      <form className="search__form">
+      <form className="search__form" required>
         <img className="search__icon"
           src={searchIcon}
           alt="Поиск"
@@ -15,6 +15,7 @@ function SearchForm(props) {
           type="text"
           name="search"
           placeholder="Фильм"
+          required
         />
         <button className="search__submit" type="submit"></button>
         <div className="search__separator"></div>

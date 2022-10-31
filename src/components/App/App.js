@@ -16,7 +16,7 @@ function App() {
   return (
     <div className='app'>
       <div className='app__container'>
-
+        <main>
         <Switch>
           <Route exact path='/'>
             <Header />
@@ -47,7 +47,7 @@ function App() {
             <NotFoundError />
           </Route>
         </Switch>
-
+        </main>
       </div>
     </div>
   );
