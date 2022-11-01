@@ -41,7 +41,19 @@
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 713px) {
+  .menu {
+    padding: 175px 0 17px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .menu {
+    width: 295px;
+  }
+}
+
+@media screen and (max-width: 330px) {
   .menu {
     padding: 153px 0 17px;
     width: 258px;

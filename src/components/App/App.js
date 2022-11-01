@@ -1,7 +1,7 @@
 import '../../index.css';
 import './App.css';
 import '../Header/Header';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, useLocation } from 'react-router-dom';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
@@ -13,41 +13,52 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import NotFoundError from '../NotFoundError/NotFoundError';
 
 function App() {
+
+  let location = useLocation();
+
   return (
     <div className='app'>
       <div className='app__container'>
-        <main>
-        <Switch>
-          <Route exact path='/'>
+        {location.pathname === '/profile' ||
+          location.pathname === '/movies' ||
+          location.pathname === '/saved-movies' ?
+          <Header isLoggedIn={true} />
+          :
+          location.pathname === '/' ?
             <Header />
-            <Main />
-            <Footer />
-          </Route>
-          <Route path='/profile'>
-            <Header isLoggedIn={true}/>
-            <Profile />
-          </Route>
-          <Route path="/movies">
-            <Header isLoggedIn={true}/>
-            <Movies />
-            <Footer/>
-          </Route>
-          <Route path="/saved-movies">
-            <Header isLoggedIn={true}/>
-            <SavedMovies/>
-            <Footer/>
-          </Route>
-          <Route path='/signup'>
+            :
+            ''}
+        <main>
+          <Switch>
+            <Route exact path='/'>
+              <Main />
+            </Route>
+            <Route path='/profile'>
+              <Profile />
+            </Route>
+            <Route path="/movies">
+              <Movies />
+            </Route>
+            <Route path="/saved-movies">
+              <SavedMovies />
+            </Route>
+            <Route path='/signup'>
               <Register />
-          </Route>
-          <Route path='/signin'>
+            </Route>
+            <Route path='/signin'>
               <Login />
-          </Route>
-          <Route path="*">
-            <NotFoundError />
-          </Route>
-        </Switch>
+            </Route>
+            <Route path="*">
+              <NotFoundError />
+            </Route>
+          </Switch>
         </main>
+        {location.pathname === '/' ||
+          location.pathname === '/movies' ||
+          location.pathname === '/saved-movies' ?
+          <Footer />
+          :
+          ''}
       </div>
     </div>
   );

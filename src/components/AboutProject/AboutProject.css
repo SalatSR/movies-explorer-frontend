@@ -141,6 +141,7 @@
   .about__text-column {
     margin-bottom: 56px;
     margin-right: 0;
+    width: 300px;
   }
 
   .about__text-column:last-of-type {
