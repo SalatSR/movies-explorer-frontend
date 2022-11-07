@@ -1,0 +1,119 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  box-shadow: 0px 5px 10px -4px rgba(34, 60, 80, .18);
+  border-radius: 6px;
+  width: 100%;
+}
+
+.card__wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px;
+}
+
+.card__title {
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 18px;
+  margin: 0;
+}
+
+.card__time {
+  color: #a0a0a0;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18px;
+  text-align: right;
+  margin: 0;
+}
+
+.card__save-button {
+  width: 100px;
+  height: 29px;
+  background-color: #f4f4f4;
+  border-radius: 30px;
+  align-self: center;
+  margin: 18px 0;
+  padding: 0;
+  border: none;
+  color: #000;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 11px;
+  cursor: pointer;
+}
+
+.card__save-button:hover {
+  transition: .3s opacity;
+  opacity: .7;
+}
+
+.active-button {
+  background-color: #ee3465;
+  background-image: url(../../images/saveFilmIcon.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100px;
+  height: 29px;
+  border: none;
+  border-radius: 30px;
+  align-self: center;
+  margin: 18px 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.active-button:hover {
+  transition: .3s opacity;
+  opacity: .7;
+}
+
+.card__delete-button {
+  background-color: #f4f4f4;
+  background-image: url(../../images/deleteMovieIcon.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100px;
+  height: 29px;
+  border-radius: 30px;
+  align-self: center;
+  margin: 18px 0;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+}
+
+.card__delete-button:hover {
+  transition: .3s opacity;
+  opacity: .7;
+}
+
+.card__image {
+  object-fit: cover;
+  object-position: center;
+}
+
+@media screen and (max-width: 700px) {
+  .card__wrapper {
+    padding: 14px;
+  }
+
+  .card__title {
+    font-size: 12px;
+  }
+
+  .card__time {
+    font-size: 10px;
+  }
+
+  .card__save-button {
+    margin: 14px 0 14px;
+  }
+
+  .active-button {
+    margin: 14px 0 14px;
+  }
+}

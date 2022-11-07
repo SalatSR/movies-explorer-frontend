@@ -1,0 +1,21 @@
+.register__fieldset {
+  margin-bottom: 100px;
+}
+
+@media screen and (max-width: 800px) {
+  .register__fieldset {
+    margin: 0 0 307px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .register__fieldset {
+    margin: 0 0 257px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .register__fieldset {
+    margin: 0 0 226px;
+  }
+}
