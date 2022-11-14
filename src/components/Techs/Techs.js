@@ -2,9 +2,9 @@ import './Techs.css';
 import Section from '../Section/Section';
 
 
-function Techs(props) {
+function Techs() {
   return (
-    <Section title="Технологии"  anchor="techs" light={true}>
+    <Section title="Технологии"  anchor="techs" dark={true}>
       <div className="techs__wrapper">
         <p className="techs__header">7 технологий</p>
         <p className="techs__text">На курсе веб-разработки мы освоили технологии, которые применили в дипломном проекте.</p>

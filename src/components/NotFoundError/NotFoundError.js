@@ -1,7 +1,7 @@
 import './NotFoundError.css';
 import { NavLink } from 'react-router-dom'
 
-function NotFoundError(props) {
+function NotFoundError() {
   return (
     <section className="not-found-error">
       <div className="not-found-error__wrapper">

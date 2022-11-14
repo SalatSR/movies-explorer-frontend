@@ -7,13 +7,22 @@ function NavTab() {
     <nav className="menu">
       <ul className="menu__list">
         <li className="menu__list-item">
-          <Link to={{ pathname: '/', hash: "#aboutProject" }} className="menu__link">О проекте</Link>
+          <Link
+            to={{ pathname: '/', hash: "#aboutProject" }}
+            className="menu__link"
+          >О проекте</Link>
         </li>
         <li className="menu__list-item">
-          <Link to={{ pathname: '/', hash: "#techs" }} className="menu__link">Технологии</Link>
+          <Link
+            to={{ pathname: '/', hash: "#techs" }}
+            className="menu__link"
+          >Технологии</Link>
         </li>
         <li className="menu__list-item">
-          <Link to={{ pathname: '/', hash: "#aboutMe" }} className="menu__link">Студент</Link>
+          <Link
+            to={{ pathname: '/', hash: "#aboutMe" }}
+            className="menu__link"
+          >Студент</Link>
         </li>
       </ul>
     </nav>

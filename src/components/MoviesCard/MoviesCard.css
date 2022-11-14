@@ -19,6 +19,10 @@
   font-size: 15px;
   line-height: 18px;
   margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 250px;
 }
 
 .card__time {
@@ -28,6 +32,13 @@
   line-height: 18px;
   text-align: right;
   margin: 0;
+}
+
+.card__image-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .card__save-button {
@@ -92,8 +103,22 @@
 }
 
 .card__image {
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
+  min-height: 200px;
+  max-height: 200px;
+  min-width: 100%;
+}
+
+.card__image:hover {
+  transition: .3s;
+  opacity: .7;
+}
+
+@media screen and (max-width: 900px) {
+  .card__title {
+    max-width: 200px;
+  }
 }
 
 @media screen and (max-width: 700px) {

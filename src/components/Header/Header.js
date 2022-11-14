@@ -24,13 +24,25 @@ function Header(props) {
             <Logo />
             <ul className="header__links header__links_left">
               <li className="header__links-item header__links-item_left">
-                <NavLink className="header__link header__link_type_films" activeClassName="header__link_active" to="/movies">Фильмы</NavLink>
+                <NavLink
+                  className="header__link header__link_type_films"
+                  activeClassName="header__link_active"
+                  to="/movies"
+                >Фильмы</NavLink>
               </li>
               <li className="header__links-item header__links-item_left">
-                <NavLink className="header__link header__link_type_savedfilms" activeClassName="header__link_active" to="/saved-movies">Сохранённые фильмы</NavLink>
+                <NavLink
+                  className="header__link header__link_type_savedfilms"
+                  activeClassName="header__link_active"
+                  to="/saved-movies"
+                >Сохранённые фильмы</NavLink>
               </li>
               <li className="header__links-item header__links-item_logo">
-                <NavLink className="header__link header__link_type_account" activeClassName="header__link_active" to="/profile">Аккаунт</NavLink>
+                <NavLink
+                  className="header__link header__link_type_account"
+                  activeClassName="header__link_active"
+                  to="/profile"
+                >Аккаунт</NavLink>
               </li>
             </ul>
             <button className="header__menu-button" onClick={openMenu}></button>
@@ -39,16 +51,31 @@ function Header(props) {
                 <button className="header__menu-button-close" onClick={closeMenu}></button>
                 <ul className="header__menu-links">
                   <li className="header__menu-links-item">
-                    <NavLink className="header__menu-link" to="/">Главная</NavLink>
+                    <NavLink
+                      className="header__menu-link"
+                      to="/"
+                    >Главная</NavLink>
                   </li>
                   <li className="header__menu-links-item">
-                    <NavLink className="header__menu-link" activeClassName="header__menu-link_active" onClick={closeMenu} to="/movies">Фильмы</NavLink>
+                    <NavLink
+                      className="header__menu-link"
+                      activeClassName="header__menu-link_active"
+                      onClick={closeMenu}
+                      to="/movies">Фильмы</NavLink>
                   </li>
                   <li className="header__menu-links-item">
-                    <NavLink className="header__menu-link" activeClassName="header__menu-link_active" onClick={closeMenu} to="/saved-movies">Сохранённые фильмы</NavLink>
+                    <NavLink
+                      className="header__menu-link"
+                      activeClassName="header__menu-link_active"
+                      onClick={closeMenu}
+                      to="/saved-movies"
+                    >Сохранённые фильмы</NavLink>
                   </li>
                   <li className="header__menu-links-item">
-                    <NavLink className="header__menu-link header__menu-link_type_account" onClick={closeMenu} to="/profile">Аккаунт</NavLink>
+                    <NavLink
+                      className="header__menu-link header__menu-link_type_account"
+                      onClick={closeMenu}
+                      to="/profile">Аккаунт</NavLink>
                   </li>
                 </ul>
               </div>
@@ -59,10 +86,18 @@ function Header(props) {
             <Logo />
             <ul className="header__links header__links_right">
               <li className="header__links-item header__links-item_right">
-                <NavLink className="header__link header__link_type_signup" activeClassName="header__link_active" to='/signup'>Регистрация</NavLink>
+                <NavLink
+                  className="header__link header__link_type_signup"
+                  activeClassName="header__link_active"
+                  to='/signup'
+                >Регистрация</NavLink>
               </li>
               <li className="header__links-item header__links-item_left">
-                <NavLink className="header__link header__link_type_signin" activeClassName="header__link_active" to="/signin">Войти</NavLink>
+                <NavLink
+                  className="header__link header__link_type_signin"
+                  activeClassName="header__link_active"
+                  to="/signin"
+                >Войти</NavLink>
               </li>
             </ul>
           </>

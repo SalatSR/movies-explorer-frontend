@@ -43,8 +43,8 @@
 }
 
 .header__link:hover {
-  transition: 0.3s;
-  opacity: 0.7;
+  transition: .3s;
+  opacity: .7;
 }
 
 .header__link_type_signin {
@@ -75,7 +75,7 @@
   border-radius: 15px;
   box-sizing: border-box;
   padding: 3px 3px 3px 7px;
-  box-shadow: 0px 0px 19px 0px rgba(34, 60, 80, 0.2);
+  box-shadow: 0px 0px 19px 0px rgba(34, 60, 80, .2);
 }
 
 .header__link_type_account::after {
@@ -100,7 +100,7 @@
   right: 0;
   display: flex;
   justify-content: flex-end;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, .3);
   z-index: 1;
   visibility: hidden;
 }
@@ -124,21 +124,21 @@
 }
 
 .header__menu-button:hover {
-  transition: 0.3s;
-  opacity: 0.7;
+  transition: .3s;
+  opacity: .7;
 }
 
 .header__menu-links-wrapper {
   background-color: #fafafa;
   transform: translateX(100%);
-  transition: 0.3s;
+  transition: .3s;
   visibility: hidden;
   padding: 160px 90px 92px;
   width: 44%;
 }
 
 .visible-animation {
-  transition: 0.3s;
+  transition: .3s;
   visibility: visible;
   transform: translateX(0);
 }
@@ -159,8 +159,8 @@
 }
 
 .header__menu-button-close:hover {
-  transition: 0.3s;
-  opacity: 0.7;
+  transition: .3s;
+  opacity: .7;
 }
 
 .header__menu-links {
@@ -191,8 +191,8 @@
 }
 
 .header__menu-link:hover {
-  transition: 0.3s;
-  opacity: 0.7;
+  transition: .3s;
+  opacity: .7;
 }
 
 .header__menu-link_active {
@@ -207,7 +207,7 @@
   border-radius: 15px;
   box-sizing: border-box;
   padding: 3px 3px 3px 7px;
-  box-shadow: 0px 0px 19px 0px rgba(34, 60, 80, 0.2);
+  box-shadow: 0px 0px 19px 0px rgba(34, 60, 80, .2);
 }
 
 .header__menu-link_type_account::after {

@@ -17,9 +17,9 @@ function AboutMe(props) {
             Во время обучения начал искать работу по новой профессии,
             планирую устроиться по новой специальности в кротчайшие сроки.
           </p>
-          <ul className="about-me__social">
-            <li className="about-me__social-item">
-              <a className="about-me__social-link"
+          <ul className="about-me__networks">
+            <li className="about-me__networks-item">
+              <a className="about-me__networks-link"
                 href="https://github.com/salatsr"
                 target="_blank"
                 rel="noreferrer">
@@ -28,7 +28,10 @@ function AboutMe(props) {
             </li>
           </ul>
         </div>
-        <img className="about-me__avatar" alt="Аватар пользователя" src={aboutMeAvatar} />
+        <img
+          className="about-me__avatar"
+          alt="Аватар пользователя"
+          src={aboutMeAvatar} />
       </div>
       <Portfolio />
     </Section>

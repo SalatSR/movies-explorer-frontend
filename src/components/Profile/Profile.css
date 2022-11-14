@@ -11,6 +11,22 @@
   flex-direction: column;
   min-width: 410px;
   justify-content: space-between;
+  max-width: 410px;
+}
+
+.profile__form-message {
+  font-weight: 400;
+  font-size: 13px;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.profile__form-message_succeed {
+  color: #000;
+}
+
+.profile__form-message_error {
+  color: #ee3465;
 }
 
 .profile__input-label {
@@ -77,6 +93,16 @@
 .profile__form-submit:hover {
   transition: .3s;
   opacity: .7;
+}
+
+.profile__form-submit_disabled {
+  opacity: inherit;
+  cursor: unset;
+}
+
+.profile__form-submit_disabled:hover {
+  transition: .3s;
+  opacity: 1;
 }
 
 .profile__signout-link {
