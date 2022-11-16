@@ -1,4 +1,4 @@
-import { MAINAPI_URL } from './constants';
+import { BASE_URL } from './constants';
 
 /** Проверка статуса запроса */
 function checkResponse(res) {
@@ -10,7 +10,7 @@ function checkResponse(res) {
 
 /** Регистрация */
 export const signup = (name, email, password) => {
-  return fetch(`${MAINAPI_URL}/signup`, {
+  return fetch(`${BASE_URL}/signup`, {
     method: "POST",
     credentials: 'include',
     headers: {
@@ -27,7 +27,7 @@ export const signup = (name, email, password) => {
 
 /** Авторизация */
 export const signin = (email, password) => {
-  return fetch(`${MAINAPI_URL}/signin`, {
+  return fetch(`${BASE_URL}/signin`, {
     method: "POST",
     credentials: 'include',
     headers: {

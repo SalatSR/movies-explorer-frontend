@@ -1,5 +1,6 @@
 import './Register.css';
 import '../AuthForm/AuthForm.css';
+import { regularExpOfMail } from '../../utils/regularExp';
 import { useValidationForm } from '../../hooks/useValidationForm';
 import Logo from '../Logo/Logo';
 import { NavLink } from 'react-router-dom';
@@ -42,6 +43,7 @@ function Register(props) {
                 name="email"
                 id="email"
                 required
+                pattern={regularExpOfMail}
                 value={values.email || ''}
                 onChange={handleErrors}
                 disabled={props.isSubmitting}

@@ -62,7 +62,14 @@ function MoviesCard(props) {
         <h2 className="card__title">{props.movie.nameRU || props.movie.nameEN}</h2>
         <p className="card__time">{`${transformedTime}`}</p>
       </div>
-      <a className="card__image-link" href={props.isSavedMovies ? props.movie.trailerLink : props.movie.trailerLink}>
+      <a
+        className="card__image-link"
+        target="_blank"
+        rel="noreferrer"
+        href={props.isSavedMovies ?
+          props.movie.trailerLink
+          :
+          props.movie.trailerLink}>
         <img className="card__image" src={props.isSavedMovies ? props.movie.image : cinema.image} alt="Плакат фильма" />
       </a>
       {props.isSavedMovies ?

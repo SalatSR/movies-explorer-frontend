@@ -1,5 +1,6 @@
 import '../AuthForm/AuthForm.css';
 import './Login.css';
+import { regularExpOfMail } from '../../utils/regularExp';
 import { useValidationForm } from '../../hooks/useValidationForm';
 import Logo from '../Logo/Logo';
 import { NavLink } from 'react-router-dom';
@@ -14,14 +15,6 @@ function Login(props) {
   }
 
   return (
-    // <AuthForm
-    //   title="Рады видеть!"
-    //   btnText="Войти"
-    //   subtitleText="Еще не зарегистрированы?"
-    //   linkText="Регистрация"
-    //   route="/signup"
-    // >
-    //   <fieldset className="auth__fieldset login__fieldset">
     <section className="auth">
       <div className="auth__wrapper">
         <Logo />
@@ -36,6 +29,7 @@ function Login(props) {
                 name="email"
                 id="email"
                 required
+                pattern={regularExpOfMail}
                 value={values.email || ''}
                 onChange={handleErrors}
               />

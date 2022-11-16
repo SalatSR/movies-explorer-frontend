@@ -17,6 +17,7 @@ import { CurrentUserContext } from '../../context/CurrentUserContext';
 import * as auth from '../../utils/auth';
 import * as moviesApi from '../../utils/MoviesApi';
 import api from '../../utils/MainApi';
+import { useCallback } from 'react';
 
 function App() {
 
@@ -26,7 +27,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loginMessage, setLoginMessage] = useState('');
   const [registerMessage, setRegisterMessage] = useState('');
-  const [currentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isSucced, setIsSucced] = useState(false);
@@ -37,38 +38,39 @@ function App() {
   const [savedMovies, setSavedMovies] = useState([]);
   const [isShortMovies, setIsShortMovies] = useState(false);
   const [editUserDataMessage, setEditUserDataMessage] = useState('');
+  const [isLoad, setIsLoad] = useState(false);
 
-  /** Проверяем состояние пользователя */
-  useEffect(() => {
-    if (isLoggedIn) {
-      api.getUserData()
-        .then(currentUser => {
-          setCurrentUser(currentUser);
-          setIsLoggedIn(true);
-        })
-        .catch(err => {
-          setIsLoggedIn(false);
-          console.log(`Error: ${err}`);
-        });
-    };
-  }, [isLoggedIn]);
+
+
+  const checkToken = useCallback(async () => {
+    return await api.getUserData()
+  }, [])
 
   /** Проверяем наличие токена в хранилище,
-   * сверяем токены на устройстве и сервере.
-   * Отслеживаем переключение маршрутов.
-   * Если есть логиним пользователя со страницы "/" на страницу "/movies"
-   */
+  * сверяем токены на устройстве и сервере.
+  * Отслеживаем переключение маршрутов.
+  * Если есть логиним пользователя со страницы "/" на страницу "/movies"
+  */
   useEffect(() => {
-    api.getUserData()
-      .then(res => {
-        setIsLoggedIn(true);
-        history.push('/movies');
-      })
-      .catch(err => {
+    (async () => {
+      try {
+        if (!isLoggedIn) {
+          const result = await checkToken();
+          setCurrentUser(result);
+          setIsLoggedIn(true);
+        } else if (!currentUser) {
+          const result = await checkToken();
+          setCurrentUser(result);
+        }
+      } catch (err) {
         setIsLoggedIn(false);
         console.log(`Error: ${err}`);
-      })
-  }, [history]);
+      } finally {
+        setIsLoad(true);
+      }
+
+    })()
+  }, [history, isLoggedIn, currentUser, checkToken]);
 
   /** Разлогиниваемся и чистим localStorage */
   useEffect(() => {
@@ -76,30 +78,32 @@ function App() {
       api.exit('/signout')
         .then((res) => {
           localStorage.clear();
+          setCurrentUser({});
+          setMovies(null);
+          setMoviesState(null);
+          setSavedMovies(null);
           setIsLoggedIn(false);
         })
         .catch(err => console.log(`Error: ${err}`));
     }
-  }, [location.pathname, history]);
-
-  /** Загружаем в  localStorage сохранённые фильмы с сервера после разлогинивания */
-  function getSavedMoviesFromServer() {
-    api.getSavedMovies()
-          .then((savedMovies) => {
-            setLocalStorage('savedMovies', savedMovies);
-            const movies = parseLocalStorage('savedMovies');
-            setSavedMovies(movies);
-          })
-          .catch(err => console.log(`Error: ${err}`));
-  };
+  }, [location.pathname]);
 
   /** Регистрируем пользователя */
   function registerUser(name, email, password) {
     auth.signup(name, email, password)
-      .then((res) => {
-        setRegisterMessage('');
+      .then(() => {
+        auth.signin(email, password)
+          .then(currentUser => {
+            setCurrentUser(currentUser);
+            setIsLoggedIn(true);
+            history.push('/movies');
+          })
+          .catch(err => {
+            setIsLoggedIn(false);
+            console.log(`Error: ${err}`);
+          });
         setIsSubmitting(false);
-        history.push('/signin');
+        setRegisterMessage('');
       })
       .catch((err) => {
         if (err === 'Error: 400 Bad Request') {
@@ -119,7 +123,8 @@ function App() {
   /** Авторизация пользователя */
   function loginUser(email, password) {
     return auth.signin(email, password)
-      .then((res) => {
+      .then(currentUser => {
+        setCurrentUser(currentUser);
         setIsLoggedIn(true);
         setLoginMessage('');
         history.push('/movies');
@@ -160,9 +165,25 @@ function App() {
   }
 
   /** Выгружаем данные из localStorage */
-  function parseLocalStorage(itemName) {
-    return JSON.parse(localStorage.getItem(itemName));
-  };
+  const parseLocalStorage = useCallback((itemName) => {
+    try {
+      return JSON.parse(localStorage.getItem(itemName));
+    } catch (err) {
+      console.log(`Error: ${err}`);
+      return null;
+    }
+  }, []);
+
+  /** Загружаем в  localStorage сохранённые фильмы с сервера после разлогинивания */
+  const getSavedMoviesFromServer = useCallback(() => {
+    api.getSavedMovies()
+      .then((savedMovies) => {
+        setLocalStorage('savedMovies', savedMovies);
+        const movies = parseLocalStorage('savedMovies');
+        setSavedMovies(movies);
+      })
+      .catch(err => console.log(`Error: ${err}`));
+  }, [parseLocalStorage]);
 
   /** Пишем данные в localStorage */
   function setLocalStorage(itemName, data) {
@@ -285,34 +306,37 @@ function App() {
    */
   useEffect(() => {
     if (location.pathname === '/saved-movies') {
-      if (localStorage.length === 0) {
+      const movies = parseLocalStorage('savedMovies')
+      if (!movies && movies.length === 0) {
         getSavedMoviesFromServer();
       }
       else {
-        setSavedMovies(parseLocalStorage('savedMovies'));
+        setSavedMovies(movies);
       }
     }
-  }, [history, location.pathname]);
+  }, [history, location.pathname, parseLocalStorage, getSavedMoviesFromServer]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className='app'>
         <div className='app__container'>
-          {location.pathname === '/profile' ||
+          {location.pathname === '/' ||
             location.pathname === '/movies' ||
+            location.pathname === '/profile' ||
             location.pathname === '/saved-movies' ?
-            <Header isLoggedIn={isLoggedIn} />
-            :
-            location.pathname === '/' ?
-              <Header />
+            isLoggedIn ?
+              <Header isLoggedIn={isLoggedIn} />
               :
-              ''}
+              <Header />
+            :
+            ''
+          }
           <main>
             <Switch>
               <Route exact path='/' >
                 <Main />
               </Route>
-              <ProtectedRoute path='/profile' isLoggedIn={isLoggedIn}>
+              <ProtectedRoute path='/profile' isLoggedIn={isLoggedIn} isLoad={isLoad} >
                 <Profile
                   isSubmitting={isSubmitting}
                   isSucced={isSucced}
@@ -320,7 +344,7 @@ function App() {
                   handleEditUserData={handleEditUserData}
                 />
               </ProtectedRoute>
-              <ProtectedRoute path='/movies' isLoggedIn={isLoggedIn}>
+              <ProtectedRoute path='/movies' isLoggedIn={isLoggedIn} isLoad={isLoad} >
                 <Movies
                   isLoading={isLoading}
                   movies={movies}
@@ -333,7 +357,7 @@ function App() {
                   handleDeleteMovie={deleteMovie}
                 />
               </ProtectedRoute>
-              <ProtectedRoute path='/saved-movies' isLoggedIn={isLoggedIn}>
+              <ProtectedRoute path='/saved-movies' isLoggedIn={isLoggedIn} isLoad={isLoad} >
                 <SavedMovies
                   movies={savedMovies}
                   moviesError={moviesError}
@@ -344,7 +368,7 @@ function App() {
                   handleDeleteMovie={deleteMovie}
                 />
               </ProtectedRoute>
-              <ProtectedRoute path='/signout' isLoggedIn={false} />
+              <ProtectedRoute path='/signout' isLoggedIn={false} isLoad={true} />
               <Route exact path='/signup'>
                 <Register
                   registerUser={registerUser}
