@@ -37,6 +37,32 @@
 
 .movies-list__add-btn_disabled {
   opacity: 0;
+  cursor: auto;
+}
+
+.hidden {
+  display: none;
+}
+
+.movies-list__no-saved-films {
+  color: #000;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.movies-list__not-found {
+  color: #000;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.movies-list__error {
+  color: #000;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
 }
 
 @media screen and (max-width: 800px) {

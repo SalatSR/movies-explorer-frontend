@@ -3,7 +3,12 @@ import "./FilterCheckbox.css";
 function FilterCheckbox(props) {
   return (
     <label className="filtercheckbox">
-      <input className="filtercheckbox__input" type="checkbox" />
+      <input
+        className="filtercheckbox__input"
+        type="checkbox"
+        onChange={props.toggleShortMovies}
+        checked={!!props.isShortMovies}
+      />
       <span className="filtercheckbox__visible-input"></span>
       Короткометражки
     </label>

@@ -50,6 +50,10 @@
     box-sizing: border-box;
 }
 
+.preloader_hidden {
+    display: none;
+  }
+
 .preloader__container {
     width: 100px;
     height: 100px;

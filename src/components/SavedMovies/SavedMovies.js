@@ -6,8 +6,17 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 function SavedMovies(props) {
   return (
     <section className="saved-movies">
-      <SearchForm />
-      <MoviesCardList savedMovies={true} isSaved={true}/>
+      <SearchForm
+        isShortMovies={props.isShortMovies}
+        toggleShortMovies={props.toggleShortMovies}
+        handleSearchSavedMovies={props.handleSearchSavedMovies}
+        isSavedMovies={true}
+      />
+      <MoviesCardList
+        isSavedMovies={true}
+        movies={props.movies}
+        handleDeleteMovie={props.handleDeleteMovie}
+      />
     </section>
   )
 }

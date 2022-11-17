@@ -33,22 +33,22 @@
   margin: 0 0 100px 0;
 }
 
-.about-me__social {
+.about-me__networks {
   display: flex;
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
 
-.about-me__social-item {
+.about-me__networks-item {
   margin-right: 20px;
 }
 
-.about-me__social-item:last-of-type {
+.about-me__networks-item:last-of-type {
   margin-right: 0;
 }
 
-.about-me__social-link {
+.about-me__networks-link {
   color: #000;
   font-weight: 500;
   font-size: 14px;
@@ -57,7 +57,7 @@
   transition: opacity .2s;
 }
 
-.about-me__social-link:hover {
+.about-me__networks-link:hover {
   opacity: .7;
 }
 
