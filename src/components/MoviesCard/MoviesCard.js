@@ -1,6 +1,7 @@
 import "./MoviesCard.css";
 import image from '../../images/notFoundImage.jpg';
 import { useState, useEffect } from 'react';
+import { useCallback } from "react";
 
 function MoviesCard(props) {
 
@@ -23,14 +24,14 @@ function MoviesCard(props) {
   const transformedTime = `${Math.trunc(cinema.duration / 60)}ч ${cinema.duration % 60}м`;
 
   /** Подсвечиваем фильм "лайком" при выводе результата поиска во вкладке '/movies', если он есть в localStorage */
-  function isLikedMovie() {
+  const isLikedMovie = useCallback(() => {
     if (localStorage.getItem('savedMovies')) {
       let savedMovies = JSON.parse(localStorage.getItem("savedMovies"));
       if (savedMovies.some(movie => (movie.nameRU === props.movie.nameRU) || (movie.nameEN === props.movie.nameEN))) {
         setIsSaved(true);
       }
     }
-  }
+  }, [props.movie.nameRU, props.movie.nameEN]);
 
   /** Сохраняем фильм */
   function handleSaveMovie() {
@@ -54,7 +55,7 @@ function MoviesCard(props) {
 
   useEffect(() => {
     isLikedMovie();
-  }, []);
+  }, [isLikedMovie]);
 
   return (
     <div className="card">

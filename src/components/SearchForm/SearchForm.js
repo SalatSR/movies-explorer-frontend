@@ -2,11 +2,18 @@ import './SearchForm.css';
 import { useState } from 'react';
 import searchIcon from '../../images/searchIcon.svg';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
+import { useEffect } from 'react';
 
-function SearchForm(props) {
+function SearchForm({ movieSearchKey, handleSearchMovies, ...props}) {
 
-  const [searchInput, setSearchInput] = useState('');
+  const [searchInput, setSearchInput] = useState(movieSearchKey || '');
   const [isSearchFormValid, setIsSearchFormValid] = useState(true);
+
+  useEffect(() => {
+    if (movieSearchKey) {
+      handleSearchMovies(movieSearchKey);
+    }
+  }, [movieSearchKey, handleSearchMovies]);
 
   /** Валидируем введенные данные */
   function handleChange(e) {
@@ -17,7 +24,7 @@ function SearchForm(props) {
   /** Передаём введенные данные для поиска фильма */
   function onSubmit(e) {
     e.preventDefault();
-    props.handleSearchMovies(searchInput);
+    handleSearchMovies(searchInput);
   }
 
   /** Передаём введенные данные для поиска фильма среди сохранённых */
@@ -43,6 +50,7 @@ function SearchForm(props) {
           placeholder="Фильм"
           required
           onChange={handleChange}
+          value={searchInput}
         />
         <span className={`search__input-error ${isSearchFormValid ?
           'search__input-error_hidden'

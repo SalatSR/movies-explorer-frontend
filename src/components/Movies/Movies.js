@@ -10,6 +10,7 @@ function Movies(props) {
       handleSearchMovies={props.handleSearchMovies}
       isShortMovies={props.isShortMovies}
       toggleShortMovies={props.toggleShortMovies}
+      movieSearchKey={props.movieSearchKey}
     />
     <MoviesCardList
       isLoading={props.isLoading}

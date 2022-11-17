@@ -19,6 +19,21 @@ import * as moviesApi from '../../utils/MoviesApi';
 import api from '../../utils/MainApi';
 import { useCallback } from 'react';
 
+/** Выгружаем данные из localStorage */
+function parseLocalStorage(itemName) {
+  try {
+    return JSON.parse(localStorage.getItem(itemName));
+  } catch (err) {
+    console.log(`Error: ${err}`);
+    return null;
+  }
+};
+
+/** Пишем данные в localStorage */
+function setLocalStorage(itemName, data) {
+  return localStorage.setItem(itemName, JSON.stringify(data));
+};
+
 function App() {
 
   const history = useHistory();
@@ -40,8 +55,6 @@ function App() {
   const [editUserDataMessage, setEditUserDataMessage] = useState('');
   const [isLoad, setIsLoad] = useState(false);
 
-
-
   const checkToken = useCallback(async () => {
     return await api.getUserData()
   }, [])
@@ -54,15 +67,15 @@ function App() {
   useEffect(() => {
     (async () => {
       try {
+        const result = await checkToken();
         if (!isLoggedIn) {
-          const result = await checkToken();
           setCurrentUser(result);
           setIsLoggedIn(true);
         } else if (!currentUser) {
-          const result = await checkToken();
           setCurrentUser(result);
         }
       } catch (err) {
+        history.push('/signout');
         setIsLoggedIn(false);
         console.log(`Error: ${err}`);
       } finally {
@@ -78,11 +91,16 @@ function App() {
       api.exit('/signout')
         .then((res) => {
           localStorage.clear();
-          setCurrentUser({});
-          setMovies(null);
-          setMoviesState(null);
-          setSavedMovies(null);
+          setCurrentUser(null);
+          setMovies([]);
+          setMoviesState([]);
+          setSavedMovies([]);
+          setMoviesError(false);
+          setIsShortMovies(false);
           setIsLoggedIn(false);
+          setLoginMessage('');
+          setEditUserDataMessage('');
+          setIsLoad(false);
         })
         .catch(err => console.log(`Error: ${err}`));
     }
@@ -144,6 +162,7 @@ function App() {
   /** Состояние чекбокса короткометражек */
   function toggleShortMovies(e) {
     setIsShortMovies(e.target.checked);
+    setLocalStorage('filterCheckState', e.target.checked);
   }
 
   /** Редактируем данные пользователя */
@@ -164,16 +183,6 @@ function App() {
       })
   }
 
-  /** Выгружаем данные из localStorage */
-  const parseLocalStorage = useCallback((itemName) => {
-    try {
-      return JSON.parse(localStorage.getItem(itemName));
-    } catch (err) {
-      console.log(`Error: ${err}`);
-      return null;
-    }
-  }, []);
-
   /** Загружаем в  localStorage сохранённые фильмы с сервера после разлогинивания */
   const getSavedMoviesFromServer = useCallback(() => {
     api.getSavedMovies()
@@ -183,15 +192,10 @@ function App() {
         setSavedMovies(movies);
       })
       .catch(err => console.log(`Error: ${err}`));
-  }, [parseLocalStorage]);
-
-  /** Пишем данные в localStorage */
-  function setLocalStorage(itemName, data) {
-    return localStorage.setItem(itemName, JSON.stringify(data));
-  };
+  }, []);
 
   /** Поиск фильмов по ключевому слову */
-  function searchMoviesByKeyword(movies, keyword) {
+  const searchMoviesByKeyword = useCallback((movies, keyword) => {
     let foundMovies = [];
 
 
@@ -212,14 +216,15 @@ function App() {
     })
 
     return foundMovies;
-  }
+  }, [isShortMovies])
 
   /** Поиск фильмов */
-  function searchMovies(keyword) {
+  const searchMovies = useCallback((keyword) => {
     setIsLoading(true);
     setMovies([]);
     setIsNotFound(false);
     setMoviesError(false);
+    setLocalStorage('movieSearchKey', keyword);
 
     /** Проверяем, есть ли полученные со стороннего сервиса массив фильмов
      * если нет - запрашиваем из стороннего сервиса
@@ -266,7 +271,7 @@ function App() {
         setMovies([]);
       }
     }
-  }
+  }, [searchMoviesByKeyword, moviesState])
 
   /** Поиск среди сохранённых фильмов */
   function searchSavedMovies(keyword) {
@@ -314,7 +319,19 @@ function App() {
         setSavedMovies(movies);
       }
     }
-  }, [history, location.pathname, parseLocalStorage, getSavedMoviesFromServer]);
+  }, [history, location.pathname, getSavedMoviesFromServer]);
+
+  /** Выгружаем поисковый запрос из localStorage */
+  const movieSearchKey = parseLocalStorage('movieSearchKey');
+
+  /** Выгружаем состояние чекбокса из localStorage */
+  const filterCheckState = parseLocalStorage('filterCheckState');
+
+  useEffect(() => {
+    if (filterCheckState) {
+      setIsShortMovies(!!filterCheckState)
+    }
+  }, [filterCheckState])
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -355,6 +372,7 @@ function App() {
                   handleSearchMovies={searchMovies}
                   handleSaveMovie={saveMovie}
                   handleDeleteMovie={deleteMovie}
+                  movieSearchKey={movieSearchKey}
                 />
               </ProtectedRoute>
               <ProtectedRoute path='/saved-movies' isLoggedIn={isLoggedIn} isLoad={isLoad} >

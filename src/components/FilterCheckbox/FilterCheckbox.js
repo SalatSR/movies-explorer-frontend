@@ -7,7 +7,7 @@ function FilterCheckbox(props) {
         className="filtercheckbox__input"
         type="checkbox"
         onChange={props.toggleShortMovies}
-        checked={props.isShortMovies}
+        checked={!!props.isShortMovies}
       />
       <span className="filtercheckbox__visible-input"></span>
       Короткометражки
