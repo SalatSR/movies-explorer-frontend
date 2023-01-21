@@ -1,7 +1,7 @@
 export const BASE_URL = 'http://localhost:3000';
 
 /** Ссылка на сервер приложения */
-export const MAINAPI_URL = 'https://api.salatsr-movies.nomoredomains.icu';
+export const MAINAPI_URL = 'https://api.salatiksr.ru';
 
 /** Ссылка на сервис фильмов */
 export const MOVIESAPI_URL = 'https://api.nomoreparties.co/beatfilm-movies';
