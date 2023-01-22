@@ -9,7 +9,7 @@ function AboutMe(props) {
       <div className="about-me__wrapper">
         <div className="about-me__info">
           <h3 className="about-me__title">Стас</h3>
-          <p className="about-me__subtitle">Фронтенд-разработчик, 30 года</p>
+          <p className="about-me__subtitle">Фронтенд-разработчик, 30 лет</p>
           <p className="about-me__paragraph">
             Я родился в г. Саранск, живу и работаю в г.Москва,
             закончил МГУПИ по специальности "Оптические технологии и материалы". Я люблю слушать музыку,
