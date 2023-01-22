@@ -16,6 +16,24 @@ function Portfolio() {
         </li>
         <li className="portfolio__links-item">
           <a className="portfolio__link"
+            href="https://salatsr.github.io/hyperskill-intro-to-github/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Статичный сайт (игра "Столицы")
+          </a>
+        </li>
+        <li className="portfolio__links-item">
+          <a className="portfolio__link"
+            href="https://salatsr.github.io/hyperskill-intro-to-github-3/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Статичный сайт (игра "Пианино")
+          </a>
+        </li>
+        <li className="portfolio__links-item">
+          <a className="portfolio__link"
             href="https://SalatSR.github.io/russian-travel/"
             target="_blank"
             rel="noreferrer"
