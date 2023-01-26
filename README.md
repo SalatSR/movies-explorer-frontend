@@ -43,5 +43,5 @@ https://disk.yandex.ru/d/V6Ey4usqMe7syQ
 Ссылка на репозиторий backend части: https://github.com/SalatSR/movies-explorer-api
 2. Клонируйте репозиторий frontend части 
 3. Выполните установку модулей командой `npm i`
-4. Выполните команду `npm run build`
+4. Выполните команду `npm run start`
 5. Спасибо что дочитали до конца =)
